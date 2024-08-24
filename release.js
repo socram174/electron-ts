@@ -1,6 +1,7 @@
 import { Octokit } from "@octokit/rest";
 import { execSync } from "child_process";
 import fs from "fs";
+import chalk from "chalk";
 import pkg from "./package.json" assert { type: "json" };
 import "dotenv/config";
 
@@ -40,7 +41,10 @@ const release = async () => {
 
   // Upload the built artifact to the release
 
-  console.log(`Uploading Lavanderia-Windows-${version}-Setup.exe`);
+  console.log("");
+
+
+  console.log(chalk.blue(`Uploading Lavanderia-Windows-${version}-Setup.exe`));
 
   await octokit.repos.uploadReleaseAsset({
     owner,

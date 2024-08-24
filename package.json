@@ -1,7 +1,7 @@
 {
   "name": "electron-update",
   "private": true,
-  "version": "16.0.4",
+  "version": "16.0.5",
   "type": "module",
   "repository": "https://github.com/socram174/lavanderia-autoupdate",
   "publish": {
