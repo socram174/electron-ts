@@ -1,7 +1,7 @@
 {
   "name": "electron-update",
   "private": true,
-  "version": "16.0.7",
+  "version": "16.0.8",
   "type": "module",
   "repository": "https://github.com/socram174/lavanderia-autoupdate",
   "publish": {
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && electron-builder",
+    "build": "tsc && vite build && electron-builder --publish always",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "publish": "npm run build && node ./release.js"
