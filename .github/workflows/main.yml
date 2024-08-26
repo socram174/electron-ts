@@ -21,10 +21,10 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '22.x'
-    - run: node ci
+    - run: npm ci
     - name: Build and publish app
       env: 
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-        GITHUB_OWNER: ${{ secrets.GITHUB_OWNER}}
-        GITHUB_REPO: ${{ secrets.GITHUB_REPO}}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
+        GITHUB_OWNER: ${{ secrets.GH_OWNER}}
+        GITHUB_REPO: ${{ secrets.GH_REPO}}
     - run: npm run publish
