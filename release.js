@@ -8,16 +8,13 @@ import "dotenv/config";
 const { GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO } = process.env;
 
 const release = async () => {
-  // Replace with your GitHub token
+
   const githubToken = GITHUB_TOKEN;
   const owner = GITHUB_OWNER;
   const repo = GITHUB_REPO;
 
-  // Replace with your build command
-  //const buildCommand = 'npm run build:win';
 
-  // Get the latest version from your package.json or any other source
-
+  //Get the version from package.json
   const version = pkg.version;
 
   // Create a GitHub client
@@ -25,10 +22,17 @@ const release = async () => {
     auth: githubToken,
   });
 
-  // Execute the build command
-  //execSync(buildCommand);
+  // Check if the version already exists in the repository releases
+  await octokit.repos.getLatestRelease({ owner, repo }).then((response) => { 
+    if(response.data.tag_name === version){
+      console.log(chalk.red("Version already exists"));
+      throw new Error("Version already exists");
+    };
+  });
 
   // Create a release on GitHub
+  console.log("");
+  console.log(chalk.blue(`Creating release: ${version}`));
   const createReleaseResponse = await octokit.repos.createRelease({
     owner,
     repo,
@@ -44,7 +48,7 @@ const release = async () => {
   console.log("");
 
 
-  console.log(chalk.blue(`Uploading Lavanderia-Windows-${version}-Setup.exe`));
+  console.log(chalk.blue(`Uploading Lavanderia-Windows-${chalk.yellow(version)}-Setup.exe`));
 
   await octokit.repos.uploadReleaseAsset({
     owner,
@@ -86,7 +90,7 @@ const release = async () => {
     data: fs.readFileSync(`./release/${version}/latest.yml`), // Replace with your actual path
   });
 
-  console.log(`Lavanderia-Windows-${version}-Setup.exe.blockmap`);
+  console.log(`Lavanderia-Windows-${chalk.yellow(version)}-Setup.exe.blockmap`);
 
   await octokit.repos.uploadReleaseAsset({
     owner,
@@ -98,7 +102,7 @@ const release = async () => {
     ), // Replace with your actual path
   });
 
-  console.log(`Release ${version} created successfully.`);
+  console.log(chalk.green(`Release ${chalk.yellow(version)} created successfully.`));
 };
 
 release();
