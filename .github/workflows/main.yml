@@ -32,4 +32,4 @@ jobs:
         GITHUB_OWNER: ${{ secrets.GH_OWNER }}
         GITHUB_REPO: ${{ secrets.GH_REPO }}
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      run: npm run publish
+      run: npm run build
