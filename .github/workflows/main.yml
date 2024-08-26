@@ -12,20 +12,23 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
+
     - name: Use Node.js 22.x
       uses: actions/setup-node@v4
       with:
         node-version: '22.x'
-    - name: install dependencies
-    - run: npm ci
+
+    - name: Install dependencies
+      run: npm ci
+
     - name: Build and publish app
       env: 
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN}}
-        GITHUB_OWNER: ${{ secrets.GH_OWNER}}
-        GITHUB_REPO: ${{ secrets.GH_REPO}}
-    - run: npm run publish
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GITHUB_OWNER: ${{ secrets.GH_OWNER }}
+        GITHUB_REPO: ${{ secrets.GH_REPO }}
+      run: npm run publish
